@@ -45,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Filter('Filter 7', 'filter7', false), Filter('Filter 8', 'filter8', false)
   ];
   var _searchExpanded = false;
+  var _switch = true;
 
   @override
   Widget build(BuildContext context) {
@@ -173,7 +174,53 @@ class _MyHomePageState extends State<MyHomePage> {
                   emailFocus: _emailFocus, 
                   passwordFocus: _passwordFocus,
                 ), 
-              padding: EdgeInsets.all(16),),
+              padding: EdgeInsets.all(16),
+            ),
+            _buildHeading('ActionButton'),
+            ListTile(
+              title: Text('Title'),
+              subtitle: Text('Subtitle'),
+              trailing: ActionButton(
+                iconData: Icons.payment,
+                error: 'Oops something went wrong',
+                onAction: () { return Future.delayed(Duration(seconds: 1), () => true); }
+              ),
+            ),
+            ListTile(
+              title: Text('Title'),
+              subtitle: Text('Subtitle'),
+              trailing: ActionButton(
+                iconData: Icons.error_outline,
+                error: 'Oops something went wrong',
+                onAction: () { return Future.delayed(Duration(seconds: 1), () => false); }
+              ),
+            ),
+            _buildHeading('ActionSwitch'),
+            ListTile(
+              title: Text('Title'),
+              subtitle: Text('Subtitle'),
+              trailing: ActionSwitch(
+                error: 'Oops something went wrong',
+                value: _switch,
+                onAction: (value) { 
+                  return Future.delayed(Duration(seconds: 1), () {
+                    setState(() {
+                      _switch = !_switch;
+                    });
+                    return true;
+                  }); 
+                }
+              ),
+            ),
+            ListTile(
+              title: Text('Title'),
+              subtitle: Text('Subtitle'),
+              trailing: ActionSwitch(
+                error: 'Oops something went wrong',
+                value: false,
+                onAction: (value) { return Future.delayed(Duration(seconds: 1), () => false); }
+              ),
+            ),             
           ],
         ),
       ),
