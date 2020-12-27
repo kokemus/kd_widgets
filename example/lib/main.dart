@@ -36,8 +36,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final _formKey = GlobalKey<FormState>();
   var _autovalidateMode = AutovalidateMode.disabled;
-  final _emailFocus = FocusNode();
-  final _passwordFocus = FocusNode();
+  final _emailFocus1 = FocusNode();
+  final _passwordFocus1 = FocusNode();
+    final _emailFocus2 = FocusNode();
+  final _passwordFocus2 = FocusNode();
   final _filters = [
     Filter('Filter 1', 'filter1', false), Filter('Filter 2', 'filter2', false), 
     Filter('Filter 3', 'filter3', false), Filter('Filter 4', 'filter4', true), 
@@ -151,14 +153,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   SimpleTextFormField.email(
                     hintText: 'Email*', 
                     onChanged: (value) => print(value), 
-                    node: _emailFocus, 
-                    nextNode: _passwordFocus
+                    node: _emailFocus1, 
+                    nextNode: _passwordFocus1
                   ),
                   SimpleTextFormField.password(
                     hintText: 'Password*', 
                     validator: (value) => value.length > 2 ? null : '', 
                     onChanged: (value) => 
-                    print(value), node: _passwordFocus, 
+                    print(value), node: _passwordFocus1, 
                     nextNode: null
                   ),
                   SubmitButton(state: SubmitButtonState.initial, labels: {SubmitButtonState.initial : 'Login'}, onValidate: _validate, onSubmit: _submit, onPressed: () {}),
@@ -172,8 +174,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   onSubmit: _submit, 
                   onEmailChanged: (value) => print(value), 
                   onPasswordChanged: (value) => print(value), 
-                  emailFocus: _emailFocus, 
-                  passwordFocus: _passwordFocus,
+                  emailFocus: _emailFocus2, 
+                  passwordFocus: _passwordFocus2,
                 ), 
               padding: EdgeInsets.all(16),
             ),
