@@ -7,3 +7,4 @@ export 'src/filter_row.dart';
 export 'src/search_bar.dart';
 export 'src/action_button.dart';
 export 'src/action_switch.dart';
+export 'src/badge.dart';

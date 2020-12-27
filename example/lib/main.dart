@@ -46,6 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
   var _searchExpanded = false;
   var _switch = true;
+  var _selected = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 filters: _filters,
                 onChanged: (filters) => print(filters),
               ),
-            ),            
+            ),
             _buildHeading('FilterRow with multiple choice'),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -220,7 +221,70 @@ class _MyHomePageState extends State<MyHomePage> {
                 value: false,
                 onAction: (value) { return Future.delayed(Duration(seconds: 1), () => false); }
               ),
-            ),             
+            ), 
+            _buildHeading('Badge'),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                children: [
+                  Badge(),
+                  Badge(number: '1'),
+                  Badge(number: '57'),
+                  Badge(number: '999+'),
+                  Badge(backgroundColor: Colors.redAccent,),
+                  Badge(number: '1', backgroundColor: Colors.redAccent,),
+                  Badge(number: '57', backgroundColor: Colors.orangeAccent, color: Colors.black),
+                  Badge(number: '999+', backgroundColor: Colors.cyanAccent, color: Colors.black),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: BottomNavigationBar(
+                showUnselectedLabels: false,
+                elevation: 0,
+                items: [
+                  WithBadge.bottomNavigationBarItem(
+                    icon: Icon(Icons.today),
+                    label: 'Label 1'
+                  ),                
+                  WithBadge.bottomNavigationBarItem(
+                    icon: Icon(Icons.calendar_today),
+                    badge: Badge(number: '9', backgroundColor: Colors.redAccent, color: Colors.white),
+                    label: 'Label 2'
+                  ),
+                  WithBadge.bottomNavigationBarItem(                    
+                    icon: Icon(Icons.access_alarms), 
+                    badge: Badge(number: '5', backgroundColor: Colors.orangeAccent, color: Colors.black),
+                    label: 'Label 3'
+                  )
+                ], currentIndex: _selected,
+                onTap: (index) => setState(() { _selected = index; }),
+              ),
+            ),
+            DefaultTabController(
+              length: 3,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TabBar(
+                  labelColor: Theme.of(context).accentColor,
+                  unselectedLabelColor: Theme.of(context).disabledColor,
+                  tabs: [
+                    WithBadge.tab(icon: Icon(Icons.directions_car), text: 'Text 1',),
+                    WithBadge.tab(icon: Icon(
+                      Icons.directions_transit), 
+                      text: 'Text 2',
+                      badge: Badge(number: '9', backgroundColor: Colors.redAccent, color: Colors.white),
+                    ),
+                    WithBadge.tab(
+                      icon: Icon(Icons.directions_bike), 
+                      text: 'Text 3',
+                      badge: Badge(number: '5', backgroundColor: Colors.orangeAccent, color: Colors.black),
+                    ),
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),
